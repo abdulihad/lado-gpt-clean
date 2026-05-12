@@ -266,11 +266,11 @@ setChats((prev) =>
         </div>
 
         {/* INPUT */}
-        <div className="p-2 md:p-4 bg-black flex gap-2 border-t border-gray-800">
+        <div className="p-2 md:p-4 bg-black flex items-center gap-2 border-t border-gray-800 w-full">
 
           <button
             onClick={generateImage}
-            className="bg-green-600 px-3 md:px-4 py-2 rounded-xl text-sm md:text-base"
+            className="bg-green-600 px-2 md:px-4 py-2 rounded-xl text-sm md:text-base whitespace-nowrap"
           >
             Image
           </button>
@@ -279,13 +279,13 @@ setChats((prev) =>
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            className="flex-1 p-3 rounded-xl bg-gray-900 border border-gray-700 outline-none"
+            className="flex-1 min-w-0 p-3 rounded-xl bg-gray-900 border border-gray-700 outline-none text-sm md:text-base"
             placeholder="Ask anything..."
           />
 
           <button
             onClick={sendMessage}
-            className="bg-blue-600 px-4 md:px-5 py-2 rounded-xl text-sm md:text-base"
+            className="bg-blue-600 px-3 md:px-5 py-2 rounded-xl text-sm md:text-base whitespace-nowrap"
           >
             Send
           </button>
