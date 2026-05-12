@@ -220,10 +220,10 @@ setChats((prev) =>
       </div>
 
       {/* CHAT AREA */}
-      <div className="flex-1 flex flex-col h-full">
+      <div className="flex-1 flex flex-col h-full min-h-0">
 
         {/* MESSAGES */}
-        <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
+        <div className="flex-1 min-h-0 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
 
           {messages.map((msg, i) => (
             <div
