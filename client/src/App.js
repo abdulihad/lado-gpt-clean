@@ -96,7 +96,27 @@ const sendMessage = async () => {
     });
 
     const data = await res.json();
+let i = 0;
 const text = data.reply;
+
+const interval = setInterval(() => {
+  i++;
+  setChats((prev) =>
+    prev.map((chat) =>
+      chat.id === activeChat
+        ? {
+            ...chat,
+            messages: [
+              ...chat.messages.slice(0, -1),
+              { role: "ai", text: text.slice(0, i) },
+            ],
+          }
+        : chat
+    )
+  );
+
+  if (i >= text.length) clearInterval(interval);
+}, 10);
 
 setChats((prev) =>
   prev.map((chat) =>
@@ -180,11 +200,11 @@ setChats((prev) =>
     setLoading(false);
   };
 
-  return (
-    <div className="h-screen flex flex-col md:flex-row bg-gray-900 text-white">
+    return (
+  <div className="h-screen flex bg-gray-950 text-white overflow-hidden">
 
       {/* SIDEBAR */}
-      <div className="w-full md:w-64 bg-black p-3 hidden md:flex flex-col border-r border-gray-800">
+      <div className="w-full md:w-72 bg-[#111] p-3 hidden md:flex flex-col border-r border-gray-800">
         <h1 className="text-2xl font-bold mb-4">LadoGPT</h1>
 
         <button
@@ -220,7 +240,7 @@ setChats((prev) =>
       </div>
 
       {/* CHAT AREA */}
-      <div className="flex-1 flex flex-col h-full min-h-0">
+      <div className="flex-1 flex flex-col min-h-0">
 
         {/* MESSAGES */}
         <div className="flex-1 min-h-0 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
@@ -235,12 +255,12 @@ setChats((prev) =>
               }`}
             >
               <div
-                className={`p-3 md:p-4 rounded-2xl max-w-2xl ${
-                  msg.role === "user"
-                    ? "bg-blue-600"
-                    : "bg-gray-800 border border-gray-700"
-                }`}
-              >
+  className={`p-3 md:p-4 rounded-2xl max-w-[80%] leading-relaxed ${
+    msg.role === "ai"
+      ? "bg-[#1f1f1f] border border-gray-800"
+      : "bg-blue-600"
+  }`}
+>
                 {msg.image ? (
                   <img
                     src={msg.image}
@@ -264,9 +284,21 @@ setChats((prev) =>
 
           <div ref={messagesEndRef} />
         </div>
+     
+    <div className="flex gap-2 p-2 overflow-x-auto">
+  {["Explain React", "Write email", "Code a login page"].map((s) => (
+    <button
+      key={s}
+      onClick={() => setInput(s)}
+      className="px-3 py-1 bg-gray-800 rounded-full text-sm"
+    >
+      {s}
+    </button>
+  ))}
+</div>
 
         {/* INPUT */}
-        <div className="p-2 md:p-4 bg-black flex items-center gap-2 border-t border-gray-800 w-full">
+        <div className="p-3 bg-[#111] border-t border-gray-800 flex gap-2 sticky bottom-0">
 
           <button
             onClick={generateImage}
